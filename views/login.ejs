@@ -16,22 +16,19 @@
                             </a>
                             <hr>
                             <p>Login using your Stack account</p>
-                            <form>
+                            <form action="/login" method="POST">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <input type="text" placeholder="Username" />
+                                        <input type="text" placeholder="Username" name="email"/>
                                     </div>
                                     <div class="col-sm-12">
-                                        <input type="password" placeholder="Password" />
+                                        <input type="password" placeholder="Password" name="pass"/>
                                     </div>
                                     <div class="col-sm-12">
                                         <button class="btn btn--primary type--uppercase" type="submit">Login</button>
                                     </div>
                                 </div>
                                 <!--end of row-->
-                            </form>
-                            <span class="type--fine-print block">Dont have an account yet?
-                                <a href="#">Create account</a>
                             </span>
                             <span class="type--fine-print block">Forgot your username or password?
                                 <a href="#">Recover account</a>

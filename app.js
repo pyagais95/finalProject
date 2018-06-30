@@ -6,7 +6,6 @@ var logger = require('morgan');
 var glob = require('glob');
 var mysql = require('mysql');
 const config = require('./config');
-console.log(config)
 var app = express();
 
 // view engine setup
@@ -34,7 +33,7 @@ con.connect(function(err) {
   	Id int not null auto_increment,
   	Email varchar(255) unique not null,
   	Password varchar(255) not null,
-  	Name varchar(255) not null,
+  	Name varchar(255),
   	primary key(Id)
   	);`, function(err, result){
   	if (err) throw err;
@@ -46,7 +45,7 @@ con.connect(function(err) {
 /* Configure routes */
 var routes = glob.sync('./routes/*.js');
 routes.forEach(function(route) {
-	require(route)(app);
+	require(route)(app, con);
 })
 
 // catch 404 and forward to error handler
