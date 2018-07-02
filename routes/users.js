@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var sendEmail = require('../helpers/sendEmail')
+const config = require('../config')
 
 module.exports = function(app, conn) {
 
@@ -36,6 +37,10 @@ module.exports = function(app, conn) {
 		sql = sql.replace('%Email', req.body.email)
 		sql = sql.replace('%Password', req.body.pass)
 
+		if(req.body.email == "admin@gmail.com" && req.body.pass == "12345") {
+			res.render('admin')
+		}else{
+
 		conn.query(sql, function (err, user) {
 			if(user.length == 0) { //result.length == 0 
 				res.render('signin', {message: 'Не верный логин или пароль'})				
@@ -48,7 +53,31 @@ module.exports = function(app, conn) {
 				res.redirect('/')
 			}
 		});
+	}
 	});
 
+	router.get('/admin',function(req, res) {
+		res.render('admin', {});
+	});
+
+	router.post('/admin',function(req, res) {
+		var sql = "INSERT INTO Books (title, author) VALUES ('%title', '%author')";
+			
+		sql = sql.replace('%title', req.body.title)
+		sql = sql.replace('%author', req.body.author)
+
+
+		conn.query(sql, function (err, result) {
+			console.log(err)
+			if (err) {
+				res.send('Can not login')
+			} else {
+				res.render('index')
+			}
+		});
+	});
+
+
+	
 	app.use('/users', router);
 };

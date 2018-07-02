@@ -40,7 +40,17 @@ con.connect(function(err) {
     	if (err) throw err;
     	console.log("Table created");
   });
-});
+
+   con.query(`CREATE TABLE IF NOT EXISTS Books (
+        Id int NOT NULL AUTO_INCREMENT,
+        Title VARCHAR(255) UNIQUE NOT NULL,
+        Author VARCHAR(255) NOT NULL,
+        PRIMARY KEY (id)
+      );`, function (err, result) {
+        if (err) throw err;
+          console.log("Table created");
+      });
+    });
 
 app.use(function(req, res, next) {
   res.locals.user = req.cookies.user
