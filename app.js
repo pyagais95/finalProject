@@ -6,6 +6,7 @@ var logger = require('morgan');
 var glob = require('glob');
 var mysql = require('mysql');
 const config = require('./config');
+
 var app = express();
 
 // view engine setup
@@ -18,34 +19,38 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-/*connection sql*/
+
 var con = mysql.createConnection({
   host: config.host,
   user: config.user,
   password: config.dbPassword,
-  database: config.database
+  database: config.database	
 });
 
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
-  con.query(`create table if not exists User(
-  	Id int not null auto_increment,
-  	Email varchar(255) unique not null,
-  	Password varchar(255) not null,
-  	Name varchar(255),
-  	primary key(Id)
-  	);`, function(err, result){
-  	if (err) throw err;
-  	console.log("table created!")
-  })
+  con.query(`CREATE TABLE IF NOT EXISTS User (
+  		Id int NOT NULL AUTO_INCREMENT,
+  		Email VARCHAR(255) UNIQUE NOT NULL,
+  		Password VARCHAR(255) NOT NULL,
+  		Name VARCHAR(255),
+  		PRIMARY KEY (id)
+  	);`, function (err, result) {
+    	if (err) throw err;
+    	console.log("Table created");
+  });
 });
 
+app.use(function(req, res, next) {
+  res.locals.user = req.cookies.user
+  next();
+});
 
 /* Configure routes */
 var routes = glob.sync('./routes/*.js');
 routes.forEach(function(route) {
-	require(route)(app, con);
+  require(route)(app, con);
 })
 
 // catch 404 and forward to error handler
