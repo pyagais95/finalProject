@@ -59,11 +59,19 @@
 
                         <div class="bar__module">
                             <ul class="menu-horizontal text-left">
-                                <li class="dropdown">
-                                    <span class="dropdown__trigger">Home</span>
+                                <li class="">
+                                    <a href="/"> Главная </a>
                                 </li>
+                                <% if(admin) { %>
+                                    <li class="">
+                                        <a href="/admin"> Админ </a>
+                                    </li>
+                                <% } %>
                             </ul>
+
                         </div>
+
+                        
                         <!--end module-->
                         <% if(user) { %>
                             <p> Welcome <%= user.Email %></p>
@@ -81,8 +89,7 @@
                                 </a>
                             </div>
                         <% } %>
-
-                    <p><a href="/users/signin">send email</a></p>
+                        
                         <!--end module-->
                     </div>
                 </div>

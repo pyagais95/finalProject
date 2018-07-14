@@ -3,8 +3,9 @@ var router = express.Router();
 
 module.exports = function(app, db) {
 
+
 	router.get('/',function(req, res) {
-		res.render('index', {});
+		res.redirect('/books')
 	});
 
 	app.use('/', router);
