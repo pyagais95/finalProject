@@ -67,6 +67,11 @@
                                         <a href="/admin"> Админ </a>
                                     </li>
                                 <% } %>
+                                <% if(user) { %>
+                                    <li class="">
+                                        <a href="/users/profile"> Профиль </a>
+                                    </li>
+                                <% } %>
                             </ul>
 
                         </div>
@@ -74,7 +79,7 @@
                         
                         <!--end module-->
                         <% if(user) { %>
-                            <p> Welcome <%= user.Email %></p>
+                            <p> Welcome <%= user.email %></p>
                         <% } else { %>
                             <div class="bar__module">
                                 <a class="btn btn--sm type--uppercase" href="/users/signup">

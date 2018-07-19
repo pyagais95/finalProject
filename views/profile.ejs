@@ -1,0 +1,78 @@
+<%- include('./header.ejs', {path: '../'}); %>
+<div class="main-container">
+	<section class="bg--secondary space--sm">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="boxed boxed--lg boxed--border">
+						<hr>
+						<div class="text-block">
+							<ul class="menu-vertical">
+								<li>
+									<a href="#" data-toggle-class=".account-tab:not(.hidden);hidden|#account-profile;hidden">Профиль</a>
+								</li>
+								<li>
+									<a href="#" data-toggle-class=".account-tab:not(.hidden);hidden|#account-password;hidden">Пароль</a>
+								</li>
+								<li>
+									<a href="/users/logout">Выйти</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<div class="boxed boxed--lg boxed--border">
+						<div id="account-profile" class="account-tab">
+							
+							<form action="/users/update/info" method="post">
+								<div class="row">
+									<input type="hidden" name="id" value="<%= user.id %>">
+
+									<div class="col-sm-6">
+										<label>Имя:</label>
+										<input placeholder="" type="text" name="name" value="<%= user.name %>" />
+									</div>
+									
+									<div class="col-sm-6">
+										<label>Номер телефона:</label>
+										<input placeholder="" type="text" name="phone" value="<%= user.phone %>" />
+									</div>
+									
+									<div class="col-md-3 col-sm-4">
+										<button type="submit" class="btn btn--primary type--uppercase">Сохранить</button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div id="account-password" class="hidden account-tab">
+							<h4>Пароль</h4>
+							<form method="post" action="/profile/password/update">
+								<div class="row">
+									<input type="hidden" name="_id" value="">
+									<div class="col-xs-12">
+										<label>Старый пароль:</label>
+										<input type="text" name="oldPassword" />
+									</div>
+									<div class="col-sm-6">
+										<label>Новый пароль:</label>
+										<input type="text" name="newPassword" />
+									</div>
+									<div class="col-sm-6">
+										<label>Введите новый пароль :</label>
+										<input type="text" name="confirmPassword" />
+									</div>
+									<div class="col-md-3 col-sm-4">
+										<button type="submit" class="btn btn--primary type--uppercase">Сохранить</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--end of row-->
+		</div>
+		<!--end of container-->
+	</section>
+<%- include('./footer.ejs', {path: '../'}); %>

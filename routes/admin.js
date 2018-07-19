@@ -5,7 +5,9 @@ module.exports = function(app, db) {
 
 
 	router.get('/',function(req, res) {
-		res.render('admin')
+		db.Book.findAll().then(function(books){
+			res.render('admin', { books })
+		})
 	});
 
 	app.use('/admin', router);

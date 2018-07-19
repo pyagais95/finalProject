@@ -1,0 +1,28 @@
+<%- include('./header.ejs', {path: '../../'}); %>
+<div class="main-container">
+	<section class="space--sm">
+		<div class="container">
+			<div class="col-sm-7 col-md-5">
+				<form action="/books/update" method="POST">
+					<div class="row">
+						<input type="hidden" name="id" value="<%= book.dataValues.id %>">
+						<div class="col-sm-12">
+							<input type="text" placeholder="Title" name="title"/>
+						</div>
+						<div class="col-sm-12">
+							<input type="text" placeholder="Author" name="author"/>
+						</div>
+						<div class="col-sm-12">
+							<input type="description" placeholder="Description" name="description"/>
+						</div>
+
+						<div class="col-sm-12">
+							<button class="btn btn--primary type--uppercase" type="submit">update</button>
+						</div>
+					</div>
+					<!--end of row-->
+				</form>
+			</div>
+
+		</div>
+	<%- include('./footer.ejs', {path: '../../'}); %>

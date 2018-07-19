@@ -11,5 +11,7 @@ module.exports = (sequelize, type) => {
           defaultValue: false
         },
         password: type.STRING,
+        name: type.STRING,
+        phone: type.STRING
     })
 }

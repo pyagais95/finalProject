@@ -8274,7 +8274,7 @@ article .article__title h1 {
 article .article__body img,
 article .article__body iframe,
 article .article__body .video-cover {
-  border-radius: 6px;
+  border-radius: 15px;
 }
 article .article__body img:not(:last-child),
 article .article__body iframe:not(:last-child),

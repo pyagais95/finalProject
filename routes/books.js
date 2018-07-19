@@ -10,9 +10,29 @@ module.exports = function(app, db) {
 
 	router.get('/',function(req, res) {
 		db.Book.findAll().then(books => {
-			console.log(books)
 			res.render('books', {books});
 		})
+	});
+
+	router.get('/remove',function(req, res) {
+		if(req.cookies.admin) {
+			db.Book.destroy({where: {id: req.query.id }}).then(function(){
+				res.redirect('/admin')
+			})
+		} else {
+			res.send('Not allowed')
+		}
+		
+	});
+
+	router.get('/single/:id',function(req, res) {
+		db.Book.findOne({ 
+			where: {
+				id: req.params.id
+			}}).then(book => {
+				console.log(book)
+				res.render('single', {book})
+			})
 	});
 
 
@@ -28,14 +48,32 @@ module.exports = function(app, db) {
 		res.send(req.body)
 	});
 
-	router.get('/:id',function(req, res) {
-		// search for known ids
-	db.Book.findById(req.params.id).then(book => {
-	console.log(book.dataValues)
-	var b = book.dataValues
-	res.render('single', {b})
-})
+	router.post('/update',function(req, res) {
+		console.log(req.body)
+		db.Book.update(
+			{
+				title: req.body.title,
+				author: req.body.author,
+				description: req.body.description
+			},
+			{where: {id: req.body.id}}
+		).then(function() {
+				
+				res.redirect('/books')
+			
 		})
+	});
+
+	router.get('/redact/:id',function(req, res) {
+		db.Book.findOne({ 
+			where: {
+				id: req.params.id
+			}}).then(book => {
+				console.log(book)
+				res.render('redact', {book})
+			})
+	});
+
 	
 	app.use('/books', router);
 };
